@@ -4,33 +4,35 @@ from dbconnection import Base, engine
 Base.metadata.create_all(engine)
 
 
-# Controller.create(
+# resp = Controller.create(
 #     'Josh Little',
 #     'josh@gmail.com',
 #     'Dublin',
 #     'Ireland'
 # )
 
-# Controller.create(
+# resp = Controller.create(
 #     'Mahfuz',
 #     'mahfuz@gmail.com',
 #     'Sylhet',
 #     'Bangladesh'
 # )
 
-# Controller.create(
+# resp = Controller.create(
 #     'Virat',
 #     'kohli@gmail.com',
 #     'Delhi',
 #     'India'
 # )
 
-# Controller.create(
+# resp = Controller.create(
 #     'Joe Root',
 #     'joeroot@gmail.com',
 #     'London',
 #     'England'
 # )
+
+# print(resp)
 
 # users = Controller.get_all()
 # print(users)
@@ -38,16 +40,16 @@ Base.metadata.create_all(engine)
 # user = Controller.retrive(id=1)
 # print(user)
 
-# resp = Controller.delete(id=1)
-# print(resp)
-
-resp = Controller.update(
-    id=3,
-    data={
-        'name': 'Kumar Sangakara',
-        'email': 'kumarsanga@gmail.com',
-        'city': 'Kandy',
-        'country': 'Sri Lanka'
-    }
-)
+resp = Controller.delete(id=1)
 print(resp)
+
+# resp = Controller.update(
+#     id=1,
+#     data={
+#         'name': 'Kumar Sangakara',
+#         'email': 'kumarsanga@gmail.com',
+#         'city': 'Kandy',
+#         'country': 'Sri Lanka'
+#     }
+# )
+# print(resp)

@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from dbconnection import Base, engine
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
+from dbconnection import Base
+from sqlalchemy import TIMESTAMP, Column, ForeignKey, Integer, String, text
 from sqlalchemy.orm import relationship
 
 
@@ -11,8 +11,12 @@ class Address(Base):
     city = Column(String(50), nullable=False)
     country = Column(String(50), nullable=False)
     user_id = Column(Integer, ForeignKey('users.id'))
-    created_at = Column(DateTime(), default=datetime.now())
-    user = relationship("User", back_populates="address")
+    user = relationship('User', back_populates='address')
+    created_at = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'))
+    updated_at = Column(
+        TIMESTAMP,
+        server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
+    )
 
-    def __repr__(self):
-        return f"Address(id={self.id}, city={self.city}, country={self.country}, user_id={self.user_id})"
+    # def __repr__(self):
+    #     return f'Address(id={self.id}, city={self.city}, country={self.country}, user_id={self.user_id})'
