@@ -9,14 +9,23 @@ class Controller:
             user = User(name=name, email=email)
             db.add(user)
 
-            # make an address, associate it to the user and add it to session
             address = Address(city=city, country=country, user_id=user.id)
             address.user = user
             db.add(address)
 
-            # commit the session
             db.commit()
-            return {'message': 'User created'}
+            return {
+                'message': 'User created',
+                'data': {
+                    'user': {
+                        'id': user.id,
+                        'name': user.name,
+                        'email': user.email,
+                        'city': user.address.city,
+                        'country': user.address.country
+                    }
+                }
+            }
         except Exception as e:
             return {'message': str(e.__repr__())}
 
@@ -35,7 +44,9 @@ class Controller:
 
             return {
                 'message': 'Users retrieved',
-                'users': users_list
+                'data': {
+                    'users': users_list
+                }
             }
         except Exception as e:
             return {'message': str(e.__repr__())}
@@ -46,12 +57,14 @@ class Controller:
             if user:
                 return {
                     'message': 'User retrieved',
-                    'user': {
-                        'id': user.id,
-                        'name': user.name,
-                        'email': user.email,
-                        'city': user.address.city,
-                        'country': user.address.country
+                    'data': {
+                        'user': {
+                            'id': user.id,
+                            'name': user.name,
+                            'email': user.email,
+                            'city': user.address.city,
+                            'country': user.address.country
+                        }
                     }
                 }
             else:
@@ -80,7 +93,18 @@ class Controller:
                 user.address.city = data['city']
                 user.address.country = data['country']
                 db.commit()
-                return {'message': 'User updated'}
+                return {
+                    'message': 'User updated',
+                    'data': {
+                        'user': {
+                            'id': user.id,
+                            'name': user.name,
+                            'email': user.email,
+                            'city': user.address.city,
+                            'country': user.address.country
+                        }
+                    }
+                }
             else:
                 return {'message': 'User not found'}
         except Exception as e:
