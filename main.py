@@ -1,20 +1,53 @@
-from dbconnection import Base, db, engine
-from models.Address import Address
-from models.User import User
+from Controller import Controller
+from dbconnection import Base, engine
 
 Base.metadata.create_all(engine)
 
-# make a user and add it to session
-user = User(name='Jafrul', email='syedjafrul4@gmail.com')
-db.add(user)
 
-# make an address, associate it to the user and add it to session
-address = Address(city='London', country='UK', user_id=user.id)
-address.user = user
-db.add(address)
+# Controller.create(
+#     'Josh Little',
+#     'josh@gmail.com',
+#     'Dublin',
+#     'Ireland'
+# )
 
-# commit the session
-db.commit()
+# Controller.create(
+#     'Mahfuz',
+#     'mahfuz@gmail.com',
+#     'Sylhet',
+#     'Bangladesh'
+# )
 
-# close session
-db.close()
+# Controller.create(
+#     'Virat',
+#     'kohli@gmail.com',
+#     'Delhi',
+#     'India'
+# )
+
+# Controller.create(
+#     'Joe Root',
+#     'joeroot@gmail.com',
+#     'London',
+#     'England'
+# )
+
+# users = Controller.get_all()
+# print(users)
+
+# user = Controller.retrive(id=1)
+# print(user)
+
+# resp = Controller.delete(id=1)
+# print(resp)
+
+resp = Controller.update(
+    id=3,
+    data={
+        'name': 'Kumar Sangakara',
+        'email': 'kumarsanga@gmail.com',
+        'city': 'Kandy',
+        'country': 'Sri Lanka'
+    }
+)
+print(resp)
