@@ -1,40 +1,20 @@
-from datetime import datetime
+from dbconnection import Base, db, engine
+from models.Address import Address
+from models.User import User
 
-from sqlalchemy import Column, DateTime, Integer, String, create_engine, text
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+Base.metadata.create_all(engine)
 
-# Create SQLAlchemy engine to connect to MySQL database
-engine = create_engine(
-    'mysql+mysqlconnector://root:pass9859@localhost/alchemy',
-    echo=True
-)
+# make a user and add it to session
+user = User(name='Jafrul', email='syedjafrul4@gmail.com')
+db.add(user)
 
-# Create declarative base class
-Base = declarative_base()
+# make an address, associate it to the user and add it to session
+address = Address(city='London', country='UK', user_id=user.id)
+address.user = user
+db.add(address)
 
-# Define "users" table schema
+# commit the session
+db.commit()
 
-
-class User(Base):
-    __tablename__ = 'users'
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(50), nullable=False)
-    email = Column(String(50), unique=True, nullable=False)
-    created_at = Column(DateTime(), default=datetime.now())
-
-
-# Create table "users"
-# Base.metadata.create_all(engine)
-
-# Create session to interact with database
-Session = sessionmaker(bind=engine)
-session = Session()
-
-# Insert user into "users" table
-user = User(name='Mahfuz2', email='mahfuz2.dev.98@gmail.com')
-session.add(user)
-session.commit()
-
-# Close session
-session.close()
+# close session
+db.close()
