@@ -4,6 +4,9 @@ from dbconnection import Base, engine
 Base.metadata.create_all(engine)
 
 
+# CRUD operations
+
+# creating users
 # resp = Controller.create(
 #     name='Josh Little',
 #     email='josh@gmail.com',
@@ -33,24 +36,28 @@ Base.metadata.create_all(engine)
 # )
 
 
+# get all users
 # resp = Controller.get_all()
 
 
+# get a single user
 # resp = Controller.retrive(id=1)
 
 
+# delete a single user
 # resp = Controller.delete(id=1)
 
 
-resp = Controller.update(
-    id=12,
-    data={
-        'name': 'Kumar Sangakara',
-        'email': 'kumarsanga@gmail.com',
-        'city': 'Kandy',
-        'country': 'Sri Lanka'
-    }
-)
+# update a signle user
+# resp = Controller.update(
+#     id=12,
+#     data={
+#         'name': 'Kumar Sangakara',
+#         'email': 'kumarsanga@gmail.com',
+#         'city': 'Kandy',
+#         'country': 'Sri Lanka'
+#     }
+# )
 
 
-print(resp)
+# print(resp)
